@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, TouchableWithoutFeedback } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
 import moment from 'moment'
@@ -7,38 +7,40 @@ import 'moment/locale/pt-br'
 
 import commonStyles from '../commonStyles'
 
-export default props =>{
+export default props => {
 
     const doneOrNotStyle = props.doneAt != null ?
-        { textDecorationLine: 'line-through'} : {}
+        { textDecorationLine: 'line-through' } : {}
 
     const date = props.doneAt ? props.doneAt : props.estimateAt
-    const formattedDate = moment (date).locale('pt-br')
+    const formattedDate = moment(date).locale('pt-br')
         .format('ddd, D [de] MMMM')
 
-    return(
+    return (
         <View style={styles.container}>
-            <View style={styles.checkContainer}>
-                {getCheckview(props.doneAt)}
-            </View>
+            <TouchableWithoutFeedback
+                onPress={() => props.toogleTask(props.id)}>
+                <View style={styles.checkContainer}>
+                    {getCheckview(props.doneAt)}
+                </View>
+            </TouchableWithoutFeedback>
             <View>
                 <Text style={[styles.desc, doneOrNotStyle]}>{props.desc}</Text>
                 <Text style={styles.date}>{formattedDate}</Text>
             </View>
-                
         </View>
     )
 }
 
 function getCheckview(doneAt) {
-    if(doneAt != null){
-        return(
+    if (doneAt != null) {
+        return (
             <View style={styles.done}>
                 <Icon name='check' size={20} color='#FFF'></Icon>
             </View>
         )
-    } else{
-        return(
+    } else {
+        return (
             <View style={styles.pending}></View>
         )
     }
@@ -46,41 +48,41 @@ function getCheckview(doneAt) {
 }
 
 const styles = StyleSheet.create({
-    container:{
-        flexDirection:'row',
-        borderColor:'#AAA',
+    container: {
+        flexDirection: 'row',
+        borderColor: '#AAA',
         borderBottomWidth: 1,
-        alignItems:'center',
+        alignItems: 'center',
         paddingVertical: 10
     },
-    checkContainer:{
-        width:'20%',
-        alignItems:'center',
-        justifyContent:'center'
+    checkContainer: {
+        width: '20%',
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     pending: {
         height: 25,
-        width:25,
-        borderRadius:13,
-        borderWidth:1,
+        width: 25,
+        borderRadius: 13,
+        borderWidth: 1,
         borderColor: '#555'
     },
     done: {
         height: 25,
-        width:25,
-        borderRadius:13,
-        backgroundColor:'#4D7031',
-        alignItems:'center',
-        justifyContent:'center'
+        width: 25,
+        borderRadius: 13,
+        backgroundColor: '#4D7031',
+        alignItems: 'center',
+        justifyContent: 'center'
     },
-    desc:{
-        fontFamily:commonStyles.fontFamily,
-        color:commonStyles.colors.mainText,
+    desc: {
+        fontFamily: commonStyles.fontFamily,
+        color: commonStyles.colors.mainText,
         fontSize: 15
     },
-    date:{
-        fontFamily:commonStyles.fontFamily,
-        color:commonStyles.colors.subText,
+    date: {
+        fontFamily: commonStyles.fontFamily,
+        color: commonStyles.colors.subText,
         fontSize: 12
     }
 })
