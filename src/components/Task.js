@@ -33,7 +33,7 @@ export default props => {
         )
 
     }
-
+    
     return (
         <Swipeable renderRightActions={getRightContent}>
             <View style={styles.container}>
