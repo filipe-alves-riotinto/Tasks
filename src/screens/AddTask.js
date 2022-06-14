@@ -113,7 +113,8 @@ import {
          backgroundColor: '#FFF',
          borderWidth: 1,
          borderColor: '#E3E3E3',
-         borderRadius: 6
+         borderRadius: 6,
+         color: '#000'
 
     },
      buttons:{
@@ -128,6 +129,7 @@ import {
      date:{
          fontFamily: commonStyles.fontFamily,
          fontSize: 20,
-         marginLeft: 15
+         marginLeft: 15,
+         color: '#000'
      }
  })

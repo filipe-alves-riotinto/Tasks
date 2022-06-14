@@ -8,6 +8,7 @@ import {
 }
 from 'react-native'
 
+
 import Swipeable from 'react-native-gesture-handler/Swipeable'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
@@ -27,18 +28,35 @@ export default props => {
 
     const getRightContent = () => {
         return(
-            <TouchableOpacity style={styles.right}>
-                <Icon nome="trash" size={30} color='#FFF' />
+            <TouchableOpacity style={styles.right}
+                onPress={() => props.onDelete && props.onDelete(props.id)}>
+                <Icon name="trash" size={30} color='#FFF' />
             </TouchableOpacity>
         )
 
     }
+
+    const getLeftContent = () => {
+        return(
+            <View style={styles.left}>
+                <Icon name="trash" size={20} color='#FFF'
+                style={styles.excludeIcon} />
+                <Text style={styles.excludeText}>Excluir</Text>
+            </View>
+        )
+
+    }
+
+    
     
     return (
-        <Swipeable renderRightActions={getRightContent}>
+        <Swipeable 
+            renderRightActions={getRightContent}
+            renderLeftActions={getLeftContent}
+            onSwipeableLeftOpen={() => props.onDelete && props.onDelete(props.id)}>
             <View style={styles.container}>
                 <TouchableWithoutFeedback
-                    onPress={() => props.toogleTask(props.id)}>
+                    onPress={() => props.onToogleTask(props.id)}>
                     <View style={styles.checkContainer}>
                         {getCheckview(props.doneAt)}
                     </View>
@@ -73,7 +91,8 @@ const styles = StyleSheet.create({
         borderColor: '#AAA',
         borderBottomWidth: 1,
         alignItems: 'center',
-        paddingVertical: 10
+        paddingVertical: 10,
+        backgroundColor:'#FFF'
     },
     checkContainer: {
         width: '20%',
@@ -111,5 +130,20 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'flex-end',
         paddingHorizontal: 20
+    },
+    left:{
+        flex:1,
+        backgroundColor:'red',
+        flexDirection:'row',
+        alignItems:'center'
+    },
+    excludeText:{
+        fontFamily: commonStyles.fontFamily,
+        color:'#FFF',
+        fontSize: 20,
+        margin: 10
+    },
+    excludeIcon:{
+        marginLeft:10
     }
 })

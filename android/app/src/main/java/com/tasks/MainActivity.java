@@ -22,16 +22,12 @@ public class MainActivity extends ReactActivity {
    */
 
 
-@Override
-    protected ReactActivityDelegate createReactActivityDelegate() {
-        return new ReactActivityDelegate(this, getMainComponentName()) {
-            @Override
-            protected ReactRootView createRootView() {
-                return new RNGestureHandlerEnabledRootView(MainActivity.this);
-            }
-        };
-    }
-
+  @Override
+  protected ReactActivityDelegate createReactActivityDelegate() {
+    return new MainActivityDelegate(this, getMainComponentName());
+    
+  }
+  
   public static class MainActivityDelegate extends ReactActivityDelegate {
     public MainActivityDelegate(ReactActivity activity, String mainComponentName) {
       super(activity, mainComponentName);
