@@ -4,14 +4,13 @@ import {
     Text,
     StyleSheet,
     View,
-    TextInput,
     TouchableOpacity,
-    Platform,
     Alert
 } from 'react-native'
 
 import backgroundImage from '../../assets/imgs/login.jpg'
 import commonStyles from '../commonStyles'
+import AuthInput from '../components/AuthInput'
 
 export default class Auth extends Component {
 
@@ -24,7 +23,7 @@ export default class Auth extends Component {
     }
 
     signinOrSignup = () => {
-        if (this. state.stageNew) {
+        if (this.state.stageNew) {
             Alert.alert('Sucesso!', 'Criar conta')
         } else {
             Alert.alert('Sucesoo!', 'Logar')
@@ -41,18 +40,24 @@ export default class Auth extends Component {
                         {this.state.stageNew ? 'Crie a sua conta' : ' Informe seus dados'}
                     </Text>
                     {this.state.stageNew &&
-                        <TextInput placeholder='Nome' value={this.state.name}
+                        <AuthInput icon='user' placeholder='Nome' value={this.state.name}
                             style={styles.input}
                             onChangeText={name => this.setState({ name })} />
                     }
-                    <TextInput placeholder='E-mail' value={this.state.email}
+                    <AuthInput icon='at'
+                        placeholder='E-mail'
+                        value={this.state.email}
                         style={styles.input}
                         onChangeText={email => this.setState({ email })} />
-                    <TextInput placeholder='Senha' value={this.state.password}
+                    <AuthInput icon='lock'
+                        placeholder='Senha'
+                        value={this.state.password}
                         style={styles.input} secureTextEntry={true}
                         onChangeText={password => this.setState({ password })} />
                     {this.state.stageNew &&
-                        <TextInput placeholder='Confirmação de senha' value={this.state.confirmPassord}
+                        <AuthInput icon='asterisk'
+                            placeholder='Confirmação de senha'
+                            value={this.state.confirmPassord}
                             style={styles.input} secureTextEntry={true}
                             onChangeText={confirmPassord => this.setState({ confirmPassord })} />
                     }
@@ -64,8 +69,8 @@ export default class Auth extends Component {
                         </View>
                     </TouchableOpacity>
                 </View>
-                <TouchableOpacity style={{padding:10}}
-                    onPress={() => this.setState({stageNew: !this.state.stageNew})}>
+                <TouchableOpacity style={{ padding: 10 }}
+                    onPress={() => this.setState({ stageNew: !this.state.stageNew })}>
                     <Text style={styles.buttonText}>
                         {this.state.stageNew ? 'Já possui conta?' : 'Ainda não possui conta?'}
                     </Text>
@@ -92,7 +97,7 @@ const styles = StyleSheet.create({
         fontFamily: commonStyles.fontFamily,
         color: '#FFF',
         fontSize: 20,
-        textAlign:'center'
+        textAlign: 'center'
     },
     formContainer: {
         backgroundColor: 'rgba(0, 0, 0, 0.8)',
@@ -101,14 +106,14 @@ const styles = StyleSheet.create({
     },
     input: {
         marginTop: 10,
-        backgroundColor: '#FFF',
-        padding: Platform.OS == 'ios' ? 15 : 10
+        backgroundColor: '#FFF'
     },
     button: {
         backgroundColor: '#080',
         marginTop: 10,
         padding: 10,
-        alignItems: 'center'
+        alignItems: 'center',
+        borderRadius:20
     },
     buttonText: {
         fontFamily: commonStyles.fontFamily,
